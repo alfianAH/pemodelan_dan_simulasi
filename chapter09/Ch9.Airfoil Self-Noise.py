@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 
 
@@ -21,10 +22,14 @@ def main():
     asn_data_scaled = scaler_object.fit_transform(asn_data)
     asn_data_scaled = pd.DataFrame(asn_data_scaled, columns=asn_names)
 
-    summary = asn_data_scaled.describe()
+    summary = asn_data_scaled.describe()  # Melihat dataframe yang sudah diskalakan
     summary = summary.transpose()
     print(summary)
 
+    boxplot = asn_data_scaled.boxplot(column=asn_names)  # Box plot
+    # for name in asn_names:
+    #     plt.plot(asn_data_scaled[name])
+    #     plt.show()
 
 
 
