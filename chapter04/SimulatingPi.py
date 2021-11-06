@@ -41,6 +41,7 @@ def main():
     plt.plot(x_lin, y_lin, color='red', linewidth='4')  # Plot garis lingkaran
     plt.scatter(x_circle, y_circle, color='yellow', marker='.')  # Plot titik dalam lingkaran
     plt.scatter(x_square, y_square, color='blue', marker='.')  # Plot titik luar lingkaran
+    plt.legend(['batas', 'M = {}'.format(m), '{}'.format(n-m)], loc='best')
     plt.title('Mone Carlo method for Pi estimation')  # Membuat judul
     plt.show()  # Menampilkan grafik
 

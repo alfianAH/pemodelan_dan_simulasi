@@ -14,7 +14,7 @@ def main():
     StockClose = StockData["Adj Close"]
     print(StockClose.describe())
 
-    fig, axs = plt.subplots(3, 2)
+    fig, axs = plt.subplots(3, 2, constrained_layout=True, figsize=(10, 8))
     axs[0, 0].plot(StockClose['ADBE'])
     axs[0, 0].set_title('ADBE')
     axs[0, 1].plot(StockClose['CSCO'])
