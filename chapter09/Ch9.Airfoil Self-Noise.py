@@ -26,12 +26,22 @@ def main():
     summary = summary.transpose()
     print(summary)
 
-    boxplot = asn_data_scaled.boxplot(column=asn_names)  # Box plot
+    # boxplot = asn_data_scaled.boxplot(column=asn_names)  # Box plot
     # for name in asn_names:
     #     plt.plot(asn_data_scaled[name])
     #     plt.show()
 
+    # Menghitung korelasi
+    cor_asn_data = asn_data_scaled.corr(method='pearson')
+    with pd.option_context('display.max_rows', None, 'display.max_columns', cor_asn_data.shape[1]):
+        print(cor_asn_data)
 
+    # Plot korelogram
+    plt.matshow(cor_asn_data)
+    plt.xticks(range(len(cor_asn_data.columns)), cor_asn_data.columns)
+    plt.yticks(range(len(cor_asn_data.columns)), cor_asn_data.columns)
+    plt.colorbar()
+    plt.show()
 
 
 if __name__ == '__main__':
