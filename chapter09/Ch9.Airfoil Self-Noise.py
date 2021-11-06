@@ -1,6 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
 
 def main():
@@ -41,7 +44,26 @@ def main():
     plt.xticks(range(len(cor_asn_data.columns)), cor_asn_data.columns)
     plt.yticks(range(len(cor_asn_data.columns)), cor_asn_data.columns)
     plt.colorbar()
-    plt.show()
+    # plt.show()
+
+    # Pilih kolom fitur sebagai x
+    x = asn_data_scaled.drop('SSP', axis=1)
+    # Pilih kolom target (SSP) sebagai y
+    y = asn_data_scaled['SSP']
+
+    # Membagi data training (70%) dan testing (30%)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=5)
+    # print('X train shape = ', x_train.shape)
+    # print('X test shape = ', x_test.shape)
+    # print('Y train shape = ', y_train.shape)
+    # print('Y test shape = ', y_test.shape)
+
+    linier_model = LinearRegression()  # Membuat model regresi linier
+    linier_model.fit(x_train, y_train)  # Training data
+
+    y_pred_lm = linier_model.predict(x_test)  # Prediksi x_test
+    mse_lm = mean_squared_error(y_test, y_pred_lm)  # Menghitung MSE
+    print('MSE of Linear Regression model: {}'.format(mse_lm))
 
 
 if __name__ == '__main__':
