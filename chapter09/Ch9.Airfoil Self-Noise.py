@@ -4,6 +4,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
+from sklearn.neural_network import MLPRegressor
 
 
 def main():
@@ -64,6 +65,40 @@ def main():
     y_pred_lm = linier_model.predict(x_test)  # Prediksi x_test
     mse_lm = mean_squared_error(y_test, y_pred_lm)  # Menghitung MSE
     print('MSE of Linear Regression model: {}'.format(mse_lm))
+
+    # Membuat model multi layer perceptron
+    mlp_model = MLPRegressor(
+        hidden_layer_sizes=50,
+        activation='relu',
+        solver='lbfgs',
+        tol=1e-4,
+        max_iter=10000,
+        random_state=1
+    )
+
+    mlp_model.fit(x_train, y_train)  # Training
+    y_pred_mlp = mlp_model.predict(x_test)  # Prediksi
+    mse_mlp = mean_squared_error(y_test, y_pred_mlp)  # Menghitung MSE
+    print('MSE of Neural Network model model: {}'.format(mse_mlp))
+
+    # Plotting MLP model
+    plt.figure(figsize=(10, 5))
+    plt.subplot(121)
+    plt.scatter(y_test, y_pred_mlp)
+    plt.plot((0, 1), 'r--')
+    plt.xlabel("Actual values")
+    plt.ylabel("Predicted values")
+    plt.title("SKLearn Neural Network model")
+
+    # Plotting Multi Linear Regression model
+    plt.subplot(122)
+    plt.scatter(y_test, y_pred_lm)
+    plt.plot((0, 1), 'r--')
+    plt.xlabel("Actual values")
+    plt.ylabel("Predicted values")
+    plt.title("SKLearn Linear Regression model")
+
+    plt.show()
 
 
 if __name__ == '__main__':
