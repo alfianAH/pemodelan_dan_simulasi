@@ -14,7 +14,7 @@ def main():
     asn_data = pd.read_csv('airfoil_self_noise.dat',
                            delim_whitespace=True, names=asn_names)
 
-    # print(asn_data.head())  # Melihat 5 data teratas
+    print(asn_data.head())  # Melihat 5 data teratas
     # print(asn_data.info())  # Melihat info asn_data
 
     basic_stats = asn_data.describe()  # Melihat detail masing-masing kolom
@@ -27,10 +27,10 @@ def main():
     asn_data_scaled = pd.DataFrame(asn_data_scaled, columns=asn_names)
 
     summary = asn_data_scaled.describe()  # Melihat dataframe yang sudah diskalakan
-    summary = summary.transpose()
+    # summary = summary.transpose()
     print(summary)
 
-    # boxplot = asn_data_scaled.boxplot(column=asn_names)  # Box plot
+    boxplot = asn_data_scaled.boxplot(column=asn_names)  # Box plot
     # for name in asn_names:
     #     plt.plot(asn_data_scaled[name])
     #     plt.show()
@@ -45,7 +45,7 @@ def main():
     plt.xticks(range(len(cor_asn_data.columns)), cor_asn_data.columns)
     plt.yticks(range(len(cor_asn_data.columns)), cor_asn_data.columns)
     plt.colorbar()
-    # plt.show()
+    plt.show()
 
     # Pilih kolom fitur sebagai x
     x = asn_data_scaled.drop('SSP', axis=1)
@@ -54,10 +54,10 @@ def main():
 
     # Membagi data training (70%) dan testing (30%)
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=5)
-    # print('X train shape = ', x_train.shape)
-    # print('X test shape = ', x_test.shape)
-    # print('Y train shape = ', y_train.shape)
-    # print('Y test shape = ', y_test.shape)
+    print('X train shape = ', x_train.shape)  # (1052, 5)
+    print('X test shape = ', x_test.shape)  # (451, 5)
+    print('Y train shape = ', y_train.shape)  # (1052)
+    print('Y test shape = ', y_test.shape)  # (451)
 
     linier_model = LinearRegression()  # Membuat model regresi linier
     linier_model.fit(x_train, y_train)  # Training data
